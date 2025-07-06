@@ -1,0 +1,23 @@
+# Ignore data, logs, and outputs
+logs/
+data/
+*.csv
+*.json
+*.log
+*.tmp
+__pycache__/
+*.pyc
+.DS_Store
+.env
+.env.*
+# Ignore model files
+models/
+*.h5
+*.pkl
+*.joblib
+*.pt
+*.onnx
+# Ignore notebook checkpoints
+.ipynb_checkpoints/
+# Ignore test outputs
+test_results.json

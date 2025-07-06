@@ -1,0 +1,87 @@
+# Crypto Trading AI Agent Configuration
+
+# Exchange Configuration
+exchange:
+  name: "binance"
+  sandbox: true  # Set to false for live trading
+  api_key: "${BINANCE_API_KEY}"  # Set in environment variables
+  secret: "${BINANCE_SECRET}"
+  password: ""  # For exchanges that require it
+  test: true  # Use testnet/sandbox mode
+
+# Trading Configuration
+trading:
+  symbol: "BTC/USDT"
+  base_currency: "BTC"
+  quote_currency: "USDT"
+  timeframes:
+    - "1m"
+    - "5m"
+  
+  # Risk Management
+  risk_management:
+    max_position_size_pct: 0.1  # Max 10% of portfolio per trade
+    daily_loss_limit_pct: 0.05  # Stop trading if daily loss exceeds 5%
+    stop_loss_pct: 0.02  # 2% stop loss
+    take_profit_pct: 0.04  # 4% take profit
+    max_open_positions: 3
+    
+  # Order Configuration
+  order:
+    type: "market"  # market, limit
+    amount_type: "quote"  # quote (USDT) or base (BTC)
+    min_amount: 10  # Minimum order amount in quote currency
+
+# Strategy Configuration
+strategy:
+  active: "ml_based"  # ml_based, rule_based, hybrid
+  
+  # ML Model Parameters
+  ml_model:
+    lstm_lookback: 60  # Number of periods for LSTM prediction
+    xgb_features: 20  # Number of features for XGBoost
+    confidence_threshold: 0.6  # Minimum confidence for trade execution
+    
+  # Rule-based Strategy Parameters
+  rule_based:
+    ma_fast: 10  # Fast moving average period
+    ma_slow: 30  # Slow moving average period
+    rsi_period: 14
+    rsi_oversold: 30
+    rsi_overbought: 70
+
+# Data Configuration
+data:
+  historical_limit: 1000  # Number of historical candles to fetch
+  update_interval: 60  # Data update interval in seconds
+  save_data: true  # Save historical data to files
+  
+# Backtesting Configuration
+backtest:
+  start_date: "2024-01-01"
+  end_date: "2024-12-31"
+  initial_balance: 10000  # Starting balance in quote currency
+  commission: 0.001  # Trading fee (0.1%)
+
+# Dashboard Configuration
+dashboard:
+  host: "localhost"
+  port: 8501
+  refresh_interval: 30  # Dashboard refresh interval in seconds
+
+# Logging Configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  log_file: "logs/trading_agent.log"
+  max_file_size: "10MB"
+  backup_count: 5
+
+# Model Paths
+models:
+  lstm_path: "models/lstm_price_forecast.keras"
+  xgb_path: "models/xgb_trade_signal.pkl"
+  
+# Database (for trade logging)
+database:
+  type: "sqlite"  # sqlite, postgresql, mysql
+  path: "data/trades.db"
