@@ -9,7 +9,6 @@ __pycache__/
 *.pyc
 .DS_Store
 .env
-.env.*
 # Ignore model files
 models/
 *.h5
